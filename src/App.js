@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import facade from "./apiFacade";
-import Menu from "./Menu";
-import { Link, Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function LogIn({ login }) {
   const init = { username: "", password: "" };
@@ -24,21 +23,22 @@ function LogIn({ login }) {
       <form onChange={onChange}>
         <input placeholder="User Name" id="username" />
         <input placeholder="Password" id="password" />
-        <button className="button buttonIn" onClick={performLogin}>Login</button>
+        <button className="button buttonIn" onClick={performLogin}>
+          Login
+        </button>
       </form>
     </div>
   );
 }
-function LoggedIn() {
-  return (
-    <div>
-      <Menu />
-    </div>
-  );
-}
 
-function App() {
+function App(props) {
+  let history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    props.setLogin(false);
+    history.push("/App");
+  }, []);
 
   const logout = () => {
     facade.logout();
@@ -46,6 +46,8 @@ function App() {
   };
   const login = (user, pass) => {
     facade.login(user, pass).then((res) => setLoggedIn(true));
+    props.setLogin(true);
+    history.push("/");
   };
 
   return (
@@ -54,8 +56,9 @@ function App() {
         <LogIn login={login} />
       ) : (
         <div>
-          <LoggedIn />
-          <button className="button" onClick={logout}>Logout</button>
+          <button className="button" onClick={logout}>
+            Logout
+          </button>
         </div>
       )}
     </div>

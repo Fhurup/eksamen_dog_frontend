@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./style.css"
+import "./style.css";
 import "./index.css";
 import App from "./App";
+import Menu from "./Menu";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Menu />
   </BrowserRouter>,
   document.getElementById("root")
 );
