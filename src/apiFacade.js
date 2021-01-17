@@ -139,6 +139,7 @@ function apiFacade() {
     fetchSearchAmountBreedData,
     fetchTotalSearchData,
     fetchAddDogData,
+    getRole,
   };
 }
 const facade = apiFacade();

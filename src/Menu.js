@@ -7,13 +7,31 @@ import AdminPage from "./AdminPage";
 import BreedSearch from "./BreedSearch";
 import AddDog from "./AddDog";
 import App from "./App";
+import facade from "./apiFacade";
 
 export default function Menu() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   function setLogin(status) {
     setLoggedIn(status);
+    checkRole(role);
   }
+
+  const role = facade.getRole();
+  const [isAdmin, setIsAdmin] = useState(role ? false : true);
+
+  const checkRole = (role) => {
+    if (role === "admin") {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
+  };
+
+  useEffect(() => {
+    checkRole(role);
+  }, []);
+
   return (
     <div>
       <nav className="navbar navbar-light">
@@ -50,11 +68,13 @@ export default function Menu() {
                   My Dogs
                 </NavLink>
               </li>
-              <li>
-                <NavLink activeClassName="active" to="/AdminPage">
-                  AdminPage
-                </NavLink>
-              </li>
+              {!isAdmin && (
+                <li>
+                  <NavLink activeClassName="active" to="/AdminPage">
+                    AdminPage
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <NavLink activeClassName="active" to="/addDog">
                   add Dog

@@ -35,7 +35,7 @@ const BreedSearch = () => {
       <h4>{resultData.info}</h4>
       <h3>Wikipedia entry: </h3>
       <h4>{resultData.wikipedia}</h4>
-      <h4>Image: {resultData.image}</h4>
+      <img src={resultData.image}></img>
       <h3>Random dog facts</h3>
       <h4>
         {resultData.facts &&

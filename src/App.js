@@ -45,8 +45,7 @@ function App(props) {
     setLoggedIn(false);
   };
   const login = (user, pass) => {
-    facade.login(user, pass).then((res) => setLoggedIn(true));
-    props.setLogin(true);
+    facade.login(user, pass).then((res) => props.setLogin(true));
     history.push("/");
   };
 
